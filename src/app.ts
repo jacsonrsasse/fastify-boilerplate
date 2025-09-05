@@ -2,35 +2,44 @@ import {
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
+  ZodTypeProvider,
 } from 'fastify-type-provider-zod';
 
 import fastifyCors from '@fastify/cors';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 
-import { FastifyTypedInstance } from './types/fastify.js';
-import { router } from './routes/index.js';
+import fastify from 'fastify';
+import { router } from './routes';
 
-export async function app(server: FastifyTypedInstance) {
-  server.setValidatorCompiler(validatorCompiler);
-  server.setSerializerCompiler(serializerCompiler);
-
-  server.register(fastifyCors, {
-    origin: '*',
-  });
-
-  server.register(fastifySwagger, {
-    openapi: {
-      info: {
-        title: 'Trust Issues API',
-        version: '1.0.0',
-      },
+const app = fastify({
+  logger: {
+    transport: {
+      target: 'pino-pretty',
     },
-    transform: jsonSchemaTransform,
-  });
-  server.register(fastifySwaggerUi, {
-    routePrefix: '/docs',
-  });
+  },
+}).withTypeProvider<ZodTypeProvider>();
 
-  router(server);
-}
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+
+app.register(fastifyCors, {
+  origin: '*',
+});
+
+app.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: 'Trust Issues API',
+      version: '1.0.0',
+    },
+  },
+  transform: jsonSchemaTransform,
+});
+app.register(fastifySwaggerUi, {
+  routePrefix: '/docs',
+});
+
+router(app);
+
+export default app;
