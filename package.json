@@ -1,12 +1,12 @@
 {
   "name": "trust-issues",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
+  "main": "dist/src/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node dist/src/server.js",
+    "build": "rm -rf dist && tsc && rm -f tsconfig.tsbuildinfo",
+    "start": "node dist/server.js",
+    "test": "jest --runInBand --detectOpenHandles",
     "db:generate": "./gen-migration.sh",
     "db:migrate": "npx drizzle-kit migrate"
   },
@@ -32,8 +32,10 @@
     "@eslint/js": "^9.28.0",
     "@eslint/json": "^0.12.0",
     "@eslint/markdown": "^6.4.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.15.29",
     "@types/pg": "^8.15.4",
+    "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "@typescript-eslint/parser": "^8.33.0",
     "drizzle-kit": "^0.31.1",
@@ -41,7 +43,10 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.1",
     "globals": "^16.2.0",
+    "jest": "^30.1.3",
     "prettier": "^3.5.3",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.1",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.0"
