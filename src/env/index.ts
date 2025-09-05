@@ -1,7 +1,9 @@
 import 'dotenv/config';
 import z from 'zod';
 
-const envSchema = z.object();
+const envSchema = z.object({
+  PORT: z.coerce.number(),
+});
 
 type Env = z.infer<typeof envSchema>;
 
