@@ -4,7 +4,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/src/server.js",
+    "db:generate": "./gen-migration.sh",
+    "db:migrate": "npx drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",
