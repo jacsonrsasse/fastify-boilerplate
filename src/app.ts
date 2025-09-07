@@ -30,7 +30,7 @@ app.register(fastifyCors, {
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: 'Trust Issues API',
+      title: 'Boilerplate API',
       version: '1.0.0',
     },
   },
