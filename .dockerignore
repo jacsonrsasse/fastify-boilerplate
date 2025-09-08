@@ -1,0 +1,44 @@
+node_modules/
+
+# Build
+
+dist
+.build
+.cache
+
+# Environment
+
+.env
+.env.\*
+!.env.example
+
+# Git
+
+.git
+.gitignore
+.gitattributes
+.vscode
+.idea
+.DS_Store
+
+# Docker
+
+Dockerfile
+.dockerignore
+
+# Testes e docs locais
+
+coverage
+\*.test.ts
+\*.spec.ts
+\*.test.js
+\*.spec.js
+docs/
+jest.config.ts
+
+# Others
+
+.prettierignore
+.prettier
+\*.http
+eslint.config.js
