@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:16
+    container_name: trust-issues-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=trustissues
+      - POSTGRES_DB=trustdb
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: trust-issues-dev
+    command: npm run dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
