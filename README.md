@@ -6,6 +6,7 @@ Simple Fastify project boilerplate, with swagger and tests already setup.
 
 - [Fastify Boilerplate](#fastify-boilerplate)
   - [Getting Started](#getting-started)
+    - [Using Docker](#using-docker)
   - [Project Structure](#project-structure)
   - [API Documentation](#api-documentation)
 
@@ -16,6 +17,15 @@ To get start with the project, follow these steps:
 1. Clone the repository
 2. Install dependencies: `npm install`, `pnpm install` or `yarn install`
 3. Start the development server: `npm run dev`, `pnpm run dev` or `yarn dev`
+
+### Using Docker
+
+You can use `docker compose up` to setup you dev environment at once. Take a look to the `docker-compose.yml`, this file initiates:
+
+- Database, using Postgres 16;
+- App, building the image and configuring the hot reload. To do this, we use the `Dockerfile.dev`;
+
+Also, this projects has a `Dockerfile` with multistaging build, for a production image. And, last but not least, there is a `makefile` to help build this production image, create a container to test it, and turn everything down if you needed.
 
 ## Project Structure
 
