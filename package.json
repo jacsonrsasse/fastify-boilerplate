@@ -7,7 +7,7 @@
     "build": "rm -rf dist && tsc && rm -f tsconfig.tsbuildinfo",
     "start": "node dist/server.js",
     "test": "jest --runInBand --detectOpenHandles",
-    "db:generate": "./gen-migration.sh",
+    "db:generate": "npx drizzle-kit generate --name",
     "db:migrate": "npx drizzle-kit migrate"
   },
   "keywords": [],
