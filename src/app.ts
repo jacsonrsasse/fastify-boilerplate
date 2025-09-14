@@ -22,12 +22,14 @@ const app = fastify({
 }).withTypeProvider<ZodTypeProvider>();
 
 app.setErrorHandler((error, request, reply) => {
-  request.log.error(error);
-
   if (error instanceof AppError) {
     return reply
       .status(error.statusCode)
       .send({ error: error.message, code: error.code });
+  }
+
+  if (error.code === 'FST_ERR_VALIDATION') {
+    return reply.status(400).send({ error: error.message });
   }
 
   return reply.status(500).send({ error: 'Internal server error' });
