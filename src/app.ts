@@ -11,6 +11,7 @@ import fastifySwaggerUi from '@fastify/swagger-ui';
 
 import fastify from 'fastify';
 import { router } from './routes';
+import { AppError } from './errors/app.error';
 
 const app = fastify({
   logger: {
@@ -19,6 +20,18 @@ const app = fastify({
     },
   },
 }).withTypeProvider<ZodTypeProvider>();
+
+app.setErrorHandler((error, request, reply) => {
+  request.log.error(error);
+
+  if (error instanceof AppError) {
+    return reply
+      .status(error.statusCode)
+      .send({ error: error.message, code: error.code });
+  }
+
+  return reply.status(500).send({ error: 'Internal server error' });
+});
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
